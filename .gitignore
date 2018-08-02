@@ -101,3 +101,6 @@ testem.log
 .DS_Store
 Thumbs.db
 >>>>>>> initial commit
+
+# Idea files
+**/*.iml
