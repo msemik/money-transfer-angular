@@ -1,0 +1,27 @@
+<h2></h2>
+<div class="card ml-3" style="width: 18rem;">
+  <div class="card-header">
+    <h4>Transfer <span class="badge badge-secondary">New</span></h4>
+  </div>
+  <div class="card-body">
+    <div class="alert alert-info">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      Creating <strong>transfer</strong>
+      is as easy as you can imagine
+    </div>
+    <div class="card-text">
+      <h6>Source account</h6>
+      <input [(ngModel)]="transfer.sourceAccountId" type="text" class="form-control" aria-label="Dollar amount">
+      <h6>Destination account</h6>
+      <input [(ngModel)]="transfer.destinationAccountId" type="text" class="form-control" aria-label="Dollar amount">
+      <h6>Amount</h6>
+      <div class="input-group">
+        <input [(ngModel)]="transfer.cents" type="text" class="form-control" aria-label="Dollar amount">
+        <div class="input-group-append">
+          <span class="input-group-text">$</span>
+        </div>
+      </div>
+      <button (click)="onSubmit(transfer)" type="button" class="btn btn-primary mt-3 align-right float-right">submit</button>
+    </div>
+  </div>
+</div>
