@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Transfer} from '../../Transfer';
+import {TransferService} from "../../service/transfer.service";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-create-transfer',
@@ -13,12 +15,28 @@ export class CreateTransferComponent implements OnInit {
     destinationAccountId: 2,
     cents: 10
   };
+  private transferService: TransferService;
+  private snackbar: MatSnackBar;
 
-  constructor() { }
+
+  constructor(transferService: TransferService, snackbar: MatSnackBar) {
+    this.transferService = transferService;
+    this.snackbar = snackbar;
+  }
 
   ngOnInit() {
   }
+
   onSubmit(transfer: Transfer): void {
-    console.log('Works!');
+    this.transferService.create(transfer)
+      .subscribe( res => {
+        this.snackbar.open('Transfer completed.', null, {
+          duration: 3000
+        });
+      }, err => {
+        this.snackbar.open('Error during exchanging transfer', null, {
+          duration: 3000
+        });
+      });
   }
 }

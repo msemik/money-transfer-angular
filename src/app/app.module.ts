@@ -4,6 +4,9 @@ import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {CreateTransferComponent} from './components/create-transfer/create-transfer.component';
+import {HttpClientModule} from "@angular/common/http";
+import {MatSnackBarModule} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -12,7 +15,10 @@ import {CreateTransferComponent} from './components/create-transfer/create-trans
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
