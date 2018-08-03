@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Transfer} from "../Transfer";
+import {Transfer} from "../models/Transfer";
 import {Observable, of} from "rxjs";
 import {catchError, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";

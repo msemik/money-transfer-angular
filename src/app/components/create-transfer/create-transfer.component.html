@@ -11,11 +11,15 @@
     </div>
     <div class="card-text">
       <h6>Source account</h6>
-      <input [(ngModel)]="transfer.sourceAccountId" type="text" class="form-control" aria-label="Dollar amount">
+      <select class="custom-select" id="sourceAccountId" [(ngModel)]="transfer.sourceAccountId">
+        <option *ngFor="let account of accounts" [ngValue]="account.id" [selected]="account.id == transfer.sourceAccountId">{{account.firstName}} {{account.surname}}</option>
+      </select>
       <h6>Destination account</h6>
-      <input [(ngModel)]="transfer.destinationAccountId" type="text" class="form-control" aria-label="Dollar amount">
+      <select class="custom-select" id="destinationAccountId" [(ngModel)]="transfer.destinationAccountId">
+        <option *ngFor="let account of accounts" [ngValue]="account.id" [selected]="account.id == transfer.destinationAccountId">{{account.firstName}} {{account.surname}}</option>
+      </select>
       <h6>Amount</h6>
-      <div class="input-group">
+      <div class="input-group" id="cents">
         <input [(ngModel)]="transfer.cents" type="text" class="form-control" aria-label="Dollar amount">
         <div class="input-group-append">
           <span class="input-group-text">$</span>
