@@ -17,7 +17,7 @@ export class CreateTransferComponent implements OnInit {
     destinationAccountId: 1,
     cents: 10
   };
-  accounts: Array<Account> = [];
+  accounts: Account[] = [];
   private transferService: TransferService;
   private accountService: AccountService;
   private snackbar: MatSnackBar;
@@ -31,7 +31,7 @@ export class CreateTransferComponent implements OnInit {
   ngOnInit() {
     this.accountService.findAll()
       .subscribe(
-        (acc: Array<Account>) => this.accounts = acc,
+        (acc: Account[]) => this.accounts = acc,
         err => console.error(err)
       );
   }

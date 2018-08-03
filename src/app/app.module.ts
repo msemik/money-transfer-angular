@@ -7,11 +7,13 @@ import {CreateTransferComponent} from './components/create-transfer/create-trans
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ListAccountsComponent } from './components/list-accounts/list-accounts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateTransferComponent
+    CreateTransferComponent,
+    ListAccountsComponent
   ],
   imports: [
     BrowserModule,
