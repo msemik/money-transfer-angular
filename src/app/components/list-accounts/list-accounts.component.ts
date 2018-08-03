@@ -9,8 +9,8 @@ import {AccountService} from "../../service/account.service";
 })
 export class ListAccountsComponent implements OnInit {
   private _accounts: Account[] = [];
-  private accountService: AccountService;
-  totalBalance: number;
+  totalBalance: number = 0;
+  private readonly accountService: AccountService;
 
   constructor(accountService: AccountService) {
     this.accountService = accountService;

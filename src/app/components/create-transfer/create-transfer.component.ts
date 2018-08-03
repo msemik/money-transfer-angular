@@ -11,21 +11,20 @@ import {Account} from "../../models/Account";
   styleUrls: ['./create-transfer.component.css']
 })
 export class CreateTransferComponent implements OnInit {
-  transfer: Transfer = {
-    id: null,
-    sourceAccountId: 2,
-    destinationAccountId: 1,
-    cents: 10
-  };
+  readonly transfer: Transfer;
   accounts: Account[] = [];
-  private transferService: TransferService;
-  private accountService: AccountService;
-  private snackbar: MatSnackBar;
+  private readonly transferService: TransferService;
+  private readonly accountService: AccountService;
+  private readonly snackbar: MatSnackBar;
 
   constructor(transferService: TransferService, accountService: AccountService, snackbar: MatSnackBar) {
     this.transferService = transferService;
     this.accountService = accountService;
     this.snackbar = snackbar;
+    this.transfer = new Transfer()
+    this.transfer.sourceAccountId = 2;
+    this.transfer.destinationAccountId = 1;
+    this.transfer.cents = 10;
   }
 
   ngOnInit() {

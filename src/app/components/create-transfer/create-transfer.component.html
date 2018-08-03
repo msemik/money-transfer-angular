@@ -1,7 +1,7 @@
 <h2></h2>
 <div class="card m-4" style="width: 18rem;">
   <div class="card-header">
-    <h4>Transfer <span class="badge badge-secondary">New</span></h4>
+    <h4>Transfer <span class="badge badge-success">New</span></h4>
   </div>
   <div class="card-body">
     <div class="alert alert-info">
@@ -10,22 +10,22 @@
       is as easy as you can imagine
     </div>
     <div class="card-text">
-      <h6>Source account</h6>
-      <select class="custom-select" id="sourceAccountId" [(ngModel)]="transfer.sourceAccountId">
+      <h6 class="mt-3 mb-3">Source account</h6>
+      <select class="custom-select mb-3" id="sourceAccountId" [(ngModel)]="transfer.sourceAccountId">
         <option *ngFor="let account of accounts" [ngValue]="account.id" [selected]="account.id == transfer.sourceAccountId">{{account.firstName}} {{account.surname}}</option>
       </select>
-      <h6>Destination account</h6>
-      <select class="custom-select" id="destinationAccountId" [(ngModel)]="transfer.destinationAccountId">
+      <h6 class="mb-3">Destination account</h6>
+      <select class="custom-select mb-3" id="destinationAccountId" [(ngModel)]="transfer.destinationAccountId">
         <option *ngFor="let account of accounts" [ngValue]="account.id" [selected]="account.id == transfer.destinationAccountId">{{account.firstName}} {{account.surname}}</option>
       </select>
-      <h6>Amount</h6>
-      <div class="input-group" id="cents">
-        <input [(ngModel)]="transfer.cents" type="text" class="form-control" aria-label="Dollar amount">
+      <h6 class="mb-3">Amount</h6>
+      <div class="input-group mb-4" id="cents">
+        <input [(ngModel)]="transfer.dollars" type="text" class="form-control" aria-label="Dollar amount">
         <div class="input-group-append">
           <span class="input-group-text">$</span>
         </div>
       </div>
-      <button (click)="onSubmit(transfer)" type="button" class="btn btn-primary mt-3 align-right float-right">submit</button>
+      <button (click)="onSubmit(transfer)" type="button" class="btn btn-primary align-right float-right">submit</button>
     </div>
   </div>
 </div>
