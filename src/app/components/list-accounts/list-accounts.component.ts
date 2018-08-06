@@ -4,6 +4,7 @@ import {AccountService} from "../../service/account.service";
 import {StompService} from "@stomp/ng2-stompjs";
 import {Message} from "@stomp/stompjs";
 import {map} from "rxjs/operators";
+import {Transfer} from "../../models/Transfer";
 
 @Component({
   selector: 'app-list-accounts',
@@ -28,13 +29,13 @@ export class ListAccountsComponent implements OnInit {
     var subscription = this.stompService.subscribe("/topic/transfer/*/*");
     subscription.pipe(
       map((message: Message) => {
-          return message.body;
+          return new Transfer(JSON.parse(message.body));
         }
       ))
-      .subscribe((msg_body: string) => {
-        console.log(`Received: ${msg_body}`);
+      .subscribe((transfer: Transfer) => {
+        this.refreshAccount(transfer.sourceAccountId);
+        this.refreshAccount(transfer.destinationAccountId);
       });
-
   }
 
   get accounts(): Account[] {
@@ -50,5 +51,16 @@ export class ListAccountsComponent implements OnInit {
     this.totalBalance = this.accounts
       .map(a => a.balanceInCents)
       .reduce((e1, e2) => e1 + e2, 0) / 100;
+  }
+
+  private refreshAccount(accountId: number) {
+    var index = this.accounts.findIndex((account: Account) => account.id == accountId);
+    if (index == -1) {
+      return;
+    }
+    this.accountService.findOne(accountId)
+      .subscribe((acc: Account) => {
+        this.accounts[index] = acc;
+      });
   }
 }

@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ListAccountsComponent } from './components/list-accounts/list-accounts.component';
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
 import * as SockJS from 'sockjs-client';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 export function socketProvider() {
   return new SockJS('http://localhost:8080/websocket');
@@ -46,6 +47,7 @@ const stompConfig: StompConfig = {
     ListAccountsComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpClientModule,

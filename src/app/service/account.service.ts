@@ -19,4 +19,9 @@ export class AccountService {
     return this.http.get<Account[]>(this.url)
       .pipe(map(res => res.map(element => new Account(element))));
   }
+
+  findOne(accountId: number) : Observable<Account> {
+    return this.http.get<Account>(this.url + '/' + accountId)
+      .pipe(map(element => new Account(element)));
+  }
 }

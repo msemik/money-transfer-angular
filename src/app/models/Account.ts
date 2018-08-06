@@ -1,4 +1,3 @@
-import {Input} from "@angular/core";
 
 export class Account {
   id: number;
