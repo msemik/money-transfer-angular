@@ -4,6 +4,7 @@ import {Observable, of} from "rxjs";
 import {catchError, map, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {Account} from "../models/Account";
+import {TransferTO} from "../transferobject/TransferTO";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class TransferService {
     this.http = http;
   }
 
-  create(transfer: Transfer): Observable<any> {
+  create(transfer: TransferTO): Observable<any> {
     return this.http.post(this.transferUrl, transfer)
       .pipe(
         map(res => new Transfer(res)),

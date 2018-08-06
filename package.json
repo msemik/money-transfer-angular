@@ -23,8 +23,10 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^2.2.1",
+    "@stomp/ng2-stompjs": "^6.0.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
+    "sockjs-client": "^1.1.5",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

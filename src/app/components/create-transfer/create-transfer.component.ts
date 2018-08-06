@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Transfer} from '../../models/Transfer';
 import {TransferService} from "../../service/transfer.service";
 import {MatSnackBar} from "@angular/material";
 import {AccountService} from "../../service/account.service";
 import {Account} from "../../models/Account";
+import {TransferTO} from "../../transferobject/TransferTO";
 
 @Component({
   selector: 'app-create-transfer',
@@ -24,7 +25,7 @@ export class CreateTransferComponent implements OnInit {
     this.transfer = new Transfer()
     this.transfer.sourceAccountId = 2;
     this.transfer.destinationAccountId = 1;
-    this.transfer.cents = 10;
+    this.transfer.cents = 100;
   }
 
   ngOnInit() {
@@ -36,7 +37,7 @@ export class CreateTransferComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.transferService.create(this.transfer)
+    this.transferService.create(new TransferTO(this.transfer))
       .subscribe( res => {
         this.snackbar.open('Transfer completed.', null, {
           duration: 3000
