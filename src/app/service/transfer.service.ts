@@ -10,11 +10,11 @@ import {TransferTO} from "../transferobject/TransferTO";
   providedIn: 'root'
 })
 export class TransferService {
-  private http: HttpClient;
   private transferUrl: string = "http://localhost:8080/money-transfer"
 
-  constructor(http: HttpClient) {
-    this.http = http;
+  constructor(
+    private readonly http: HttpClient
+  ) {
   }
 
   create(transfer: TransferTO): Observable<any> {
