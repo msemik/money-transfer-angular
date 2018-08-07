@@ -9,7 +9,7 @@ import {TransferTO} from "../transferobject/TransferTO";
   providedIn: 'root'
 })
 export class TransferService {
-  private transferUrl: string = "http://localhost:8080/money-transfer";
+  private transferUrl: string = "http://localhost:8080/transfer";
 
   constructor(
     private readonly http: HttpClient
