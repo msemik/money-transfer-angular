@@ -1,21 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+///<reference path="../../../../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
+import {Component, DoCheck, ElementRef, Input, OnChanges, OnInit, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
 import {Account} from "../../models/Account";
 import {AccountService} from "../../service/account.service";
 import {StompService} from "@stomp/ng2-stompjs";
 import {Message} from "@stomp/stompjs";
 import {map} from "rxjs/operators";
 import {Transfer} from "../../models/Transfer";
+import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-list-accounts',
   templateUrl: './list-accounts.component.html',
   styleUrls: ['./list-accounts.component.css']
 })
-export class ListAccountsComponent implements OnInit {
+export class ListAccountsComponent implements OnInit, DoCheck {
   private _accounts: Account[] = [];
   totalBalance: number = 0;
   private readonly accountService: AccountService;
   private readonly stompService: StompService;
+  @ViewChildren('tooltip') toolTips: QueryList<NgbTooltip>;
 
   constructor(accountService: AccountService, stompService: StompService) {
     this.accountService = accountService;
@@ -37,6 +40,11 @@ export class ListAccountsComponent implements OnInit {
         this.refreshAccount(transfer.destinationAccountId);
       });
   }
+
+  ngDoCheck(): void {
+    this.openTooltips();
+  }
+
 
   get accounts(): Account[] {
     return this._accounts;
@@ -61,6 +69,28 @@ export class ListAccountsComponent implements OnInit {
     this.accountService.findOne(accountId)
       .subscribe((acc: Account) => {
         this.accounts[index] = acc;
+        acc.tooltipEnabled = true;
       });
   }
+
+  private closeTooltip(t: NgbTooltip) {
+    var index = this.toolTips.toArray().findIndex(tooltip => t === tooltip);
+    this.accounts[index].tooltipEnabled = false;
+    t.close();
+  }
+
+  private openTooltips() {
+    this.accounts.forEach(
+      (acc, index) => {
+        if (!acc.tooltipEnabled) {
+          return;
+        }
+        var ngbTooltip = this.toolTips.toArray()[index];
+        if (!ngbTooltip.isOpen()) {
+          ngbTooltip.open();
+        }
+      }
+    )
+  }
+
 }

@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {CreateTransferComponent} from './components/create-transfer/create-transfer.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material";
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ListAccountsComponent } from './components/list-accounts/list-accounts.component';
 import {StompConfig, StompService} from "@stomp/ng2-stompjs";
@@ -52,7 +53,8 @@ const stompConfig: StompConfig = {
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   providers: [
     StompService,

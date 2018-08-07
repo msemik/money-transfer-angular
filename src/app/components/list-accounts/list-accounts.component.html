@@ -6,8 +6,10 @@
   </div>
   <div class="card-body">
       <ul class="list-group">
-
-        <li *ngFor="let account of accounts" class="list-group-item d-flex justify-content-between lh-condensed">
+        <li *ngFor="let account of accounts"
+            class="list-group-item d-flex justify-content-between lh-condensed"
+            (click)="closeTooltip(tooltip)"  [ngbTooltip]="tipContent" #tooltip="ngbTooltip" triggers="manual" placement="top-right">
+          <ng-template #tipContent class=".bg-success text-sm-left"><small (click)="closeTooltip(tooltip)">Account state have just changed!</small></ng-template>
           <div>
             <h6 class="my-0">{{account.firstName}} {{account.surname}}</h6>
             <small class="text-muted">id: {{account.id}}</small>
