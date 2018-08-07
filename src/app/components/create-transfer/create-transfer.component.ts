@@ -14,13 +14,13 @@ import {TransferTO} from "../../transferobject/TransferTO";
 export class CreateTransferComponent implements OnInit {
   readonly transfer: Transfer;
   accounts: Account[] = [];
-  private readonly transferService: TransferService;
-  private readonly accountService: AccountService;
   private readonly snackbar: MatSnackBar;
 
-  constructor(transferService: TransferService, accountService: AccountService, snackbar: MatSnackBar) {
-    this.transferService = transferService;
-    this.accountService = accountService;
+  constructor(
+    private readonly transferService: TransferService,
+    private readonly accountService: AccountService,
+    snackbar: MatSnackBar
+  ) {
     this.snackbar = snackbar;
     this.transfer = new Transfer()
     this.transfer.sourceAccountId = 2;
@@ -29,16 +29,12 @@ export class CreateTransferComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountService.findAll()
-      .subscribe(
-        (acc: Account[]) => this.accounts = acc,
-        err => console.error(err)
-      );
+    this.initAccounts();
   }
 
   onSubmit(): void {
     this.transferService.create(new TransferTO(this.transfer))
-      .subscribe( res => {
+      .subscribe(res => {
         this.snackbar.open('Transfer completed.', null, {
           duration: 3000
         });
@@ -47,6 +43,14 @@ export class CreateTransferComponent implements OnInit {
           duration: 3000
         });
       });
+  }
+
+  private initAccounts() {
+    this.accountService.findAll()
+      .subscribe(
+        (acc: Account[]) => this.accounts = acc,
+        err => console.error(err)
+      );
   }
 
 }
