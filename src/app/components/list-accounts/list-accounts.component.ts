@@ -7,6 +7,7 @@ import {Message} from "@stomp/stompjs";
 import {map} from "rxjs/operators";
 import {Transfer} from "../../models/Transfer";
 import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
+import {SubscriptionService} from "../../service/subscription.service";
 
 @Component({
   selector: 'app-list-accounts',
@@ -14,22 +15,36 @@ import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./list-accounts.component.css']
 })
 export class ListAccountsComponent implements OnInit, DoCheck {
-  private _accounts: Account[] = [];
   totalBalance: number = 0;
-  private readonly accountService: AccountService;
-  private readonly stompService: StompService;
   @ViewChildren('tooltip') toolTips: QueryList<NgbTooltip>;
 
-  constructor(accountService: AccountService, stompService: StompService) {
-    this.accountService = accountService;
-    this.stompService = stompService;
+  constructor(
+    private readonly accountService: AccountService,
+    private readonly subscriptionService: SubscriptionService) {
+  }
+
+  private _accounts: Account[] = [];
+
+  get accounts(): Account[] {
+    return this._accounts;
+  }
+
+  set accounts(value: Account[]) {
+    this._accounts = value;
+    this.computeTotalBalance();
   }
 
   ngOnInit() {
-    this.accountService.findAll()
-      .subscribe(accounts => this.accounts = accounts,
-        err => console.error(err))
-    var subscription = this.stompService.subscribe("/topic/transfer/*/*");
+    this.initAccounts();
+    this.initTransferSubscription();
+  }
+
+  ngDoCheck(): void {
+    this.openTooltips();
+  }
+
+  private initTransferSubscription() {
+    var subscription = this.subscriptionService.subscribe("/topic/transfer/*/*");
     subscription.pipe(
       map((message: Message) => {
           return new Transfer(JSON.parse(message.body));
@@ -41,18 +56,10 @@ export class ListAccountsComponent implements OnInit, DoCheck {
       });
   }
 
-  ngDoCheck(): void {
-    this.openTooltips();
-  }
-
-
-  get accounts(): Account[] {
-    return this._accounts;
-  }
-
-  set accounts(value: Account[]) {
-    this._accounts = value;
-    this.computeTotalBalance();
+  private initAccounts() {
+    this.accountService.findAll()
+      .subscribe(accounts => this.accounts = accounts,
+        err => console.error(err))
   }
 
   private computeTotalBalance() {
@@ -73,7 +80,7 @@ export class ListAccountsComponent implements OnInit, DoCheck {
       });
   }
 
-  private closeTooltip(t: NgbTooltip) {
+  public closeTooltip(t: NgbTooltip) {
     var index = this.toolTips.toArray().findIndex(tooltip => t === tooltip);
     this.accounts[index].tooltipEnabled = false;
     t.close();
@@ -92,5 +99,4 @@ export class ListAccountsComponent implements OnInit, DoCheck {
       }
     )
   }
-
 }
