@@ -26,6 +26,23 @@ export class CreateTransferComponent implements OnInit {
     this.transfer.sourceAccountId = 2;
     this.transfer.destinationAccountId = 1;
     this.transfer.cents = 100;
+    this._easyTransferAlertEnabled = this.initEasyTransferAlertEnabled();
+  }
+
+  private _easyTransferAlertEnabled: boolean;
+
+  get easyTransferAlertEnabled(): boolean {
+    return this._easyTransferAlertEnabled;
+  }
+
+  set easyTransferAlertEnabled(value: boolean) {
+    this._easyTransferAlertEnabled = value;
+    localStorage.setItem("easyTransferAlertEnabled", String(value));
+  }
+
+  private initEasyTransferAlertEnabled(): boolean {
+    let item = localStorage.getItem("easyTransferAlertEnabled");
+    return item == undefined || item == 'true';
   }
 
   ngOnInit() {

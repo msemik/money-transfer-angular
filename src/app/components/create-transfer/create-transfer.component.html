@@ -4,8 +4,8 @@
     <h4>Transfer <span class="badge badge-success">New</span></h4>
   </div>
   <div class="card-body">
-    <div class="alert alert-info">
-    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <div *ngIf="easyTransferAlertEnabled" class="alert alert-info">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true" (click)="easyTransferAlertEnabled = false">&times;</button>
       Creating <strong>transfer</strong>
       is as easy as you can imagine
     </div>
