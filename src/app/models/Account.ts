@@ -1,6 +1,3 @@
-import {QueryList, ViewChild, ViewChildren} from "@angular/core";
-import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
-
 export class Account {
   id: number;
   firstName: string;

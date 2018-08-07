@@ -1,8 +1,7 @@
 ///<reference path="../../../../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
-import {Component, DoCheck, ElementRef, Input, OnChanges, OnInit, QueryList, SimpleChanges, ViewChild, ViewChildren} from '@angular/core';
+import {Component, DoCheck, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Account} from "../../models/Account";
 import {AccountService} from "../../service/account.service";
-import {StompService} from "@stomp/ng2-stompjs";
 import {Message} from "@stomp/stompjs";
 import {map} from "rxjs/operators";
 import {Transfer} from "../../models/Transfer";
@@ -44,7 +43,7 @@ export class ListAccountsComponent implements OnInit, DoCheck {
   }
 
   private initTransferSubscription() {
-    var subscription = this.subscriptionService.subscribe("/topic/transfer/*/*");
+    const subscription = this.subscriptionService.subscribe("/topic/transfer/*/*");
     subscription.pipe(
       map((message: Message) => {
           return new Transfer(JSON.parse(message.body));
@@ -69,7 +68,7 @@ export class ListAccountsComponent implements OnInit, DoCheck {
   }
 
   private refreshAccount(accountId: number) {
-    var index = this.accounts.findIndex((account: Account) => account.id == accountId);
+    const index = this.accounts.findIndex((account: Account) => account.id == accountId);
     if (index == -1) {
       return;
     }
@@ -81,7 +80,7 @@ export class ListAccountsComponent implements OnInit, DoCheck {
   }
 
   public closeTooltip(t: NgbTooltip) {
-    var index = this.toolTips.toArray().findIndex(tooltip => t === tooltip);
+    const index = this.toolTips.toArray().findIndex(tooltip => t === tooltip);
     this.accounts[index].tooltipEnabled = false;
     t.close();
   }
@@ -92,7 +91,7 @@ export class ListAccountsComponent implements OnInit, DoCheck {
         if (!acc.tooltipEnabled) {
           return;
         }
-        var ngbTooltip = this.toolTips.toArray()[index];
+        const ngbTooltip = this.toolTips.toArray()[index];
         if (!ngbTooltip.isOpen()) {
           ngbTooltip.open();
         }

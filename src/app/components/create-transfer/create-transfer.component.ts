@@ -22,7 +22,7 @@ export class CreateTransferComponent implements OnInit {
     snackbar: MatSnackBar
   ) {
     this.snackbar = snackbar;
-    this.transfer = new Transfer()
+    this.transfer = new Transfer();
     this.transfer.sourceAccountId = 2;
     this.transfer.destinationAccountId = 1;
     this.transfer.cents = 100;

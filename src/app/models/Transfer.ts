@@ -3,7 +3,7 @@ export class Transfer {
   sourceAccountId: number;
   destinationAccountId: number;
   private _cents: number;
-  private _dollars: number
+  private _dollars: number;
 
   constructor(obj?: any) {
     Object.assign(this, obj);
