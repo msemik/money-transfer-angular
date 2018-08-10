@@ -11,7 +11,7 @@
     </div>
     <div class="card-text">
       <h6 class="mt-3 mb-3">Source account</h6>
-      <select class="custom-select mb-3" id="sourceAccountId" [(ngModel)]="transfer.sourceAccountId">
+      <select class="custom-select source-account-select mb-3" id="sourceAccountId" [(ngModel)]="transfer.sourceAccountId">
         <option *ngFor="let account of accounts" [ngValue]="account.id" [selected]="account.id == transfer.sourceAccountId">{{account.firstName}} {{account.surname}}</option>
       </select>
       <h6 class="mb-3">Destination account</h6>

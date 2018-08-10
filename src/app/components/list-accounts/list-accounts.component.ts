@@ -2,8 +2,6 @@
 import {Component, DoCheck, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Account} from "../../models/Account";
 import {AccountService} from "../../service/account.service";
-import {Message} from "@stomp/stompjs";
-import {map} from "rxjs/operators";
 import {Transfer} from "../../models/Transfer";
 import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
 import {SubscriptionService} from "../../service/subscription.service";
@@ -42,13 +40,15 @@ export class ListAccountsComponent implements OnInit, DoCheck {
     this.openTooltips();
   }
 
+  public closeTooltip(t: NgbTooltip) {
+    const index = this.toolTips.toArray().findIndex(tooltip => t === tooltip);
+    this.accounts[index].tooltipEnabled = false;
+    t.close();
+  }
+
   private initTransferSubscription() {
     const subscription = this.subscriptionService.subscribe("/topic/transfer/*/*");
-    subscription.pipe(
-      map((message: Message) => {
-          return new Transfer(JSON.parse(message.body));
-        }
-      ))
+    subscription
       .subscribe((transfer: Transfer) => {
         this.refreshAccount(transfer.sourceAccountId);
         this.refreshAccount(transfer.destinationAccountId);
@@ -77,12 +77,6 @@ export class ListAccountsComponent implements OnInit, DoCheck {
         this.accounts[index] = acc;
         acc.tooltipEnabled = true;
       });
-  }
-
-  public closeTooltip(t: NgbTooltip) {
-    const index = this.toolTips.toArray().findIndex(tooltip => t === tooltip);
-    this.accounts[index].tooltipEnabled = false;
-    t.close();
   }
 
   private openTooltips() {
