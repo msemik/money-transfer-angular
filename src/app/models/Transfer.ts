@@ -1,7 +1,7 @@
 export class Transfer {
-  id: number;
-  sourceAccountId: number;
-  destinationAccountId: number;
+  id: number|string;
+  sourceAccountId: number|string;
+  destinationAccountId: number|string;
   private _cents: number;
   private _dollars: number;
 

@@ -1,8 +1,8 @@
 import {Transfer} from "../models/Transfer";
 
 export class TransferTO {
-  sourceAccountId: number;
-  destinationAccountId: number;
+  sourceAccountId: number|string;
+  destinationAccountId: number|string;
   cents: number;
 
   constructor(transfer: Transfer) {

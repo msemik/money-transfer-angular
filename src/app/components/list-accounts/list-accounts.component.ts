@@ -67,7 +67,7 @@ export class ListAccountsComponent implements OnInit, DoCheck {
       .reduce((e1, e2) => e1 + e2, 0) / 100;
   }
 
-  private refreshAccount(accountId: number) {
+  private refreshAccount(accountId: number|string) {
     const index = this.accounts.findIndex((account: Account) => account.id == accountId);
     if (index == -1) {
       return;
