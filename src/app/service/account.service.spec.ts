@@ -27,4 +27,8 @@ describe('AccountService', () => {
   it('should be created', inject([AccountService], (service: AccountService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should return all accounts provided by http client', function () {
+    mockHttpClient.get()
+  });
 });

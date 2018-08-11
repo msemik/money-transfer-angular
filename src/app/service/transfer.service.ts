@@ -16,11 +16,10 @@ export class TransferService {
   ) {
   }
 
-  create(transfer: TransferTO): Observable<any> {
+  create(transfer: TransferTO): Observable<Object> {
     return this.http.post(this.transferUrl, transfer)
       .pipe(
-        map(res => new Transfer(res)),
-        tap<Transfer>(_ => console.log(`transfer exchanged`))
+        tap<Object>(_ => console.log(`transfer exchanged`))
       );
   }
 }

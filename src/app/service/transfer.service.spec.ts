@@ -1,9 +1,9 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { TransferService } from './transfer.service';
+import {TransferService} from './transfer.service';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {empty} from "rxjs";
-import {StompService} from "@stomp/ng2-stompjs";
+import {of, empty} from "rxjs";
+import {fail} from "assert";
 
 describe('TransferService', () => {
   let mockHttpClient;
@@ -27,5 +27,24 @@ describe('TransferService', () => {
 
   it('should be created', inject([TransferService], (service: TransferService) => {
     expect(service).toBeTruthy();
+  }));
+
+  it('should create transfer', inject([TransferService], (service: TransferService) => {
+    var mockResponse = jasmine.createSpyObj("mockResponse", ['verifyCalled']);
+    var mockTransfer = jasmine.createSpyObj("mockTransfer", ["sourceAccountId", "destinationAccountId", "cents"]);
+    mockHttpClient.post.and.returnValue(of(mockResponse));
+
+    service.create(mockTransfer)
+      .subscribe(anything => {
+          expect(anything).toBe(mockResponse);
+          mockResponse.verifyCalled();
+        },
+        err => {
+          fail("shouldn't generate errors");
+        });
+
+    expect(mockHttpClient.post.calls.count()).toBe(1)
+    expect(mockHttpClient.post).toHaveBeenCalledWith("http://localhost:8080/transfer", mockTransfer);
+    expect(mockResponse.verifyCalled.calls.count()).toBe(1)
   }));
 });
