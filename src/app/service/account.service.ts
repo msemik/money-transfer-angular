@@ -3,12 +3,13 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Account} from "../models/Account";
 import {map} from "rxjs/operators";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private readonly url: string = "http://localhost:8080/account";
+  private readonly url: string = environment.backendUrl + "/account";
 
   constructor(
     private readonly http: HttpClient

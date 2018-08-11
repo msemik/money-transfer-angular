@@ -4,12 +4,13 @@ import {Observable} from "rxjs";
 import {map, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {TransferTO} from "../transferobject/TransferTO";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferService {
-  private transferUrl: string = "http://localhost:8080/transfer";
+  private transferUrl: string = environment.backendUrl + "/transfer";
 
   constructor(
     private readonly http: HttpClient
