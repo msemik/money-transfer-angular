@@ -28,6 +28,7 @@
     "karma-cli": "^1.0.1",
     "rxjs": "^6.0.0",
     "sockjs-client": "^1.1.5",
+    "webdriver-manager": "^12.1.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
